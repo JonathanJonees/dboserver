@@ -11,11 +11,6 @@
 
 #include "GameProtocol.h"
 
-typedef struct _Object {
-	TBLIDX worldTblIdx;
-	sGU_OBJECT_CREATE ObjData;
-} ObjectInfo;
-
 class GameServer;
 class GameClient;
 
@@ -30,7 +25,7 @@ public:
 	void CreateThread();
 	void Run();
 
-	bool AddObject(ObjectInfo pObj);
+	bool AddObject(sGU_OBJECT_CREATE pObj);
 	void RemoveObject(unsigned int nHandle, BYTE byType);
 	bool FindObject(unsigned int nHandle, BYTE byType);
 
@@ -38,7 +33,7 @@ public:
 	void UpdateCharState(unsigned int nHandle, sCHARSTATE CharState);
 	void SpawnToClient(GameClient* pClient);
 
-	typedef std::map<HOBJECT, ObjectInfo> objectList;
+	typedef std::map<HOBJECT, sGU_OBJECT_CREATE> objectList;
 	typedef objectList::iterator objIt;
 	typedef objectList::value_type objVal;
 

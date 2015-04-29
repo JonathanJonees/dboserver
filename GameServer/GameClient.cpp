@@ -416,7 +416,7 @@ void GameClient::LoadCharacterData()
 	}
 }
 
-ObjectInfo GameClient::GetCharSpawnData()
+sGU_OBJECT_CREATE GameClient::GetCharSpawnData()
 {
 	sGU_OBJECT_CREATE charSpawn;
 	memset(&charSpawn, 0, sizeof(charSpawn));
@@ -467,9 +467,6 @@ ObjectInfo GameClient::GetCharSpawnData()
 			charSpawn.sObjectInfo.pcBrief.sItemBrief[slot].byRank = ItemProfile[i].byRank;
 		}
 	}
-	ObjectInfo obj;
-	obj.worldTblIdx = worldInfo.tblidx;
-	obj.ObjData = charSpawn;
-	return obj;
+	return charSpawn;
 }
 

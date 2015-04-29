@@ -283,12 +283,7 @@ void GameClient::SpawnTesteMob(unsigned int id)
 		sPacket.sObjectInfo.mobState.sCharStateDetail.sCharStateDestMove.avDestLoc[0].z = sPacket.sObjectInfo.mobState.sCharStateBase.vCurLoc.z;
 	}
 	if (false == pServer->GetObjectManager()->FindObject(sPacket.handle, sPacket.sObjectInfo.objType))
-	{
-		ObjectInfo obj;
-		obj.worldTblIdx = worldInfo.tblidx;
-		obj.ObjData = sPacket;
-		pServer->GetObjectManager()->AddObject(obj);
-	}
+		pServer->GetObjectManager()->AddObject(sPacket);
 	pServer->GetClientManager()->SpawnObjects();
 }
 
@@ -390,12 +385,13 @@ void GameClient::SendCharReadyRes(sUG_CHAR_READY* pData)
 {
 	byAvatarType = pData->byAvatarType;
 	InsertOnlineData();
+	//Send(&pData, sizeof(pData));
 }
 
 void GameClient::SendCharReadySpawnReq()
 {
-	ObjectInfo charSpawn = GetCharSpawnData();
-	charSpawn.ObjData.handle = CharSerialID;
+	sGU_OBJECT_CREATE charSpawn = GetCharSpawnData();
+	charSpawn.handle = CharSerialID;
 	if (pServer->GetClientManager()->AddClient(this))
 	{
 		pServer->GetObjectManager()->AddObject(charSpawn);
